@@ -1,4 +1,5 @@
 #include "simpleai.h"
+#include <algorithm>
 
 int readMaxGuess()
 {
@@ -60,7 +61,7 @@ map<char, int> countOccurrences(const vector<string>& candidateWords)
     map<char, int> answer;
     for(string s: candidateWords){
         for(char c: s)
-            answer[c] ++;
+            if(isalpha(c))answer[c] ++;
     }
     //Write your code here
     return answer;
@@ -74,10 +75,6 @@ map<char, int> countOccurrences(const vector<string>& candidateWords)
         answer (char) : The most frequent character
 ***/
 
-bool cmp(pair <char, int> &a, pair <char, int> &b){
-    return a.second > b.second;
-}
-
 char findMostFrequentChar(const map<char, int>& occurrences, const set<char>& selectedChars)
 {
     char answer;
@@ -86,8 +83,8 @@ char findMostFrequentChar(const map<char, int>& occurrences, const set<char>& se
     for(auto &it: occurrences){
         V.push_back(it);
     }
-    sort(V.begin(), V.end(), cmp);
-    for(auto const &[Char, Num]: m){
+    sort(V.rbegin(), V.rend());
+    for(auto const &[Char, Num]: occurrences){
         if(selectedChars.find(Char) == selectedChars.end()){
             answer = Char;
             break;
@@ -132,7 +129,6 @@ string getWordMask(char nextChar)
 bool isCorrectChar(char ch, const string& mask)
 {
     bool answer;
-    mask = getWordMask(ch);
     if(isCharInWord(ch, mask)) answer = true;
     else answer = false;
     //Write your code here
@@ -196,7 +192,7 @@ bool wordConformToMask(const string& word, const string& mask, char ch)
 vector<string> filterWordsByMask(const vector<string>& words, const string& mask, char ch)
 {
     vector<string> answer;
-    for(string &s: words){
+    for(const string &s: words){
         if(wordConformToMask(s, mask, ch)) answer.push_back(s);
     }
     //Write your code here
