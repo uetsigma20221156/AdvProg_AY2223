@@ -181,7 +181,7 @@ void Painter::turnLeft(double degree) {
 ***/
 void Painter::turnRight(double degree) {
     this->angle -= degree;
-    while(this->angle < 0) this->angle += 360;
+    while(this->angle >= 360) this->angle -= 360;
     // TODO: rotate right the painter
 }
 
