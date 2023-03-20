@@ -125,6 +125,7 @@ void Painter::jumpBackward(int numPixel) {
         if(numPixel == 15){
             this->x += 7;
             this->y += 12;
+            return;
         }
         DauX = -1;
         DauY = -1;
