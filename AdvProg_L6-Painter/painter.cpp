@@ -7,7 +7,7 @@
         None
 ***/
 void Painter::setColor(SDL_Color color) {
-    SDL_SetRenderDrawColor(this->renderer, color.r, color.g, color.b);
+    SDL_SetRenderDrawColor(this->renderer, color.r, color.g, color.b, 0);
     // TODO: set the color value for the Painter and set Render Draw Color
 }
 
@@ -150,7 +150,7 @@ void Painter::turnRight(double degree) {
         None
 ***/
 void Painter::randomColor() {
-    int color_r = rand() % 256,
+    uint8_t color_r = rand() % 256,
         color_g = rand() % 256,
         color_b = rand() % 256;
     this->color = {color_r, color_g, color_b};
