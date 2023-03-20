@@ -41,8 +41,8 @@ void Painter::jumpForward(int numPixel) {
         DauX = 1;
         DauY = -1;
         rad = 1.0 * angle / 180 * M_PI;
-        YonX = ceil(tan(rad) * 100) / 100;
-        diffX = sqrt(numPixel * numPixel / (YonX * YonX));
+        YonX = tan(rad);
+        diffX = sqrt(1.0 * numPixel * numPixel / (YonX * YonX + 1));
         diffY = sqrt(numPixel * numPixel - diffX * diffX);
         this->x += diffX * DauX;
         this->y += diffY * DauY;
@@ -52,7 +52,7 @@ void Painter::jumpForward(int numPixel) {
         DauY = -1;
         rad = 1.0 * (180 - angle) / 180 * M_PI;
         YonX = ceil(tan(rad) * 100) / 100;
-        diffX = sqrt(numPixel * numPixel / (YonX * YonX));
+        diffX = sqrt(1.0 * numPixel * numPixel / (YonX * YonX + 1));
         diffY = sqrt(numPixel * numPixel - diffX * diffX);
         this->x += diffX * DauX;
         this->y += diffY * DauY;
@@ -62,7 +62,7 @@ void Painter::jumpForward(int numPixel) {
         DauY = 1;
         rad = 1.0 * (angle - 180) / 180 * M_PI;
         YonX = ceil(tan(rad) * 100) / 100;
-        diffX = sqrt(numPixel * numPixel / (YonX * YonX));
+        diffX = sqrt(1.0 * numPixel * numPixel / (YonX * YonX + 1));
         diffY = sqrt(numPixel * numPixel - diffX * diffX);
         this->x += diffX * DauX;
         this->y += diffY * DauY;
@@ -72,7 +72,7 @@ void Painter::jumpForward(int numPixel) {
         DauY = 1;
         rad = 1.0 * (360 - angle) / 180 * M_PI;
         YonX = ceil(tan(rad) * 100) / 100;
-        diffX = sqrt(numPixel * numPixel / (YonX * YonX));
+        diffX = sqrt(1.0 * numPixel * numPixel / (YonX * YonX + 1));
         diffY = sqrt(numPixel * numPixel - diffX * diffX);
         this->x += diffX * DauX;
         this->y += diffY * DauY;
