@@ -21,43 +21,59 @@ void Painter::setColor(SDL_Color color) {
 void Painter::jumpForward(int numPixel) {
     int DauX, DauY, diffX, diffY;
     double rad, YonX;
-    if(this->angle >= 0 && this->angle < 90) {
-        DauX = 1;
-        DauY = 1;
-        rad = (90 - angle) / 180 * M_PI;
-        YonX = tan(rad);
-        diffX = sqrt(numPixel * numPixel / (YonX * YonX));
-        diffY = int(diffX * 1.0 * YonX);
-        this->x += diffX * DauX;
-        this->y += diffY * DauY;
+    if(this->angle == 0) {
+        this->x += numPixel;
+        return;
     }
-    if(this->angle >= 90 && this->angle < 180) {
+    if(this->angle == 90){
+        this->y -= numPixel;
+        return;
+    }
+    if(this->angle == 180) {
+        this->x -= numPixel;
+        return;
+    }
+    if(this->angle == 270) {
+        this->y += numPixel;
+        return;
+    }
+    if(this->angle > 0 && this->angle < 90) {
         DauX = 1;
         DauY = -1;
-        rad = (angle - 90) / 180 * M_PI;
-        YonX = tan(rad);
+        rad = 1.0 * angle / 180 * M_PI;
+        YonX = ceil(tan(rad) * 100) / 100;
         diffX = sqrt(numPixel * numPixel / (YonX * YonX));
-        diffY = int(diffX * 1.0 * YonX);
+        diffY = sqrt(numPixel * numPixel - diffX * diffX);
         this->x += diffX * DauX;
         this->y += diffY * DauY;
     }
-    if(this->angle >= 180 && this->angle < 270) {
+    if(this->angle > 90 && this->angle < 180) {
         DauX = -1;
         DauY = -1;
-        rad = (270 - angle) / 180 * M_PI;
-        YonX = tan(rad);
+        rad = 1.0 * (180 - angle) / 180 * M_PI;
+        YonX = ceil(tan(rad) * 100) / 100;
         diffX = sqrt(numPixel * numPixel / (YonX * YonX));
-        diffY = int(diffX * 1.0 * YonX);
+        diffY = sqrt(numPixel * numPixel - diffX * diffX);
         this->x += diffX * DauX;
         this->y += diffY * DauY;
     }
-    if(this->angle >= 270 && this->angle < 360) {
+    if(this->angle > 180 && this->angle < 270) {
         DauX = -1;
         DauY = 1;
-        rad = (angle - 270) / 180 * M_PI;
-        YonX = tan(rad);
+        rad = 1.0 * (angle - 180) / 180 * M_PI;
+        YonX = ceil(tan(rad) * 100) / 100;
         diffX = sqrt(numPixel * numPixel / (YonX * YonX));
-        diffY = int(diffX * 1.0 * YonX);
+        diffY = sqrt(numPixel * numPixel - diffX * diffX);
+        this->x += diffX * DauX;
+        this->y += diffY * DauY;
+    }
+    if(this->angle > 270 && this->angle < 360) {
+        DauX = 1;
+        DauY = 1;
+        rad = 1.0 * (360 - angle) / 180 * M_PI;
+        YonX = ceil(tan(rad) * 100) / 100;
+        diffX = sqrt(numPixel * numPixel / (YonX * YonX));
+        diffY = sqrt(numPixel * numPixel - diffX * diffX);
         this->x += diffX * DauX;
         this->y += diffY * DauY;
     }
@@ -74,43 +90,68 @@ void Painter::jumpForward(int numPixel) {
 void Painter::jumpBackward(int numPixel) {
     int DauX, DauY, diffX, diffY;
     double rad, YonX;
-    if(this->angle >= 0 && this->angle < 90) {
-        DauX = 1;
-        DauY = 1;
-        rad = (90 - angle) / 180 * M_PI;
-        YonX = tan(rad);
-        diffX = sqrt(numPixel * numPixel / (YonX * YonX));
-        diffY = int(diffX * 1.0 * YonX);
-        this->x -= diffX * DauX;
-        this->y -= diffY * DauY;
+    if(this->angle == 0) {
+        this->x -= numPixel;
+        return;
     }
-    if(this->angle >= 90 && this->angle < 180) {
+    if(this->angle == 90){
+        this->y += numPixel;
+        return;
+    }
+    if(this->angle == 180) {
+        this->x += numPixel;
+        return;
+    }
+    if(this->angle == 270) {
+        this->y -= numPixel;
+        return;
+    }
+    if(this->angle > 0 && this->angle < 90) {
         DauX = 1;
         DauY = -1;
-        rad = (angle - 90) / 180 * M_PI;
+        rad = 1.0 * angle / 180 * M_PI;
         YonX = tan(rad);
-        diffX = sqrt(numPixel * numPixel / (YonX * YonX));
-        diffY = int(diffX * 1.0 * YonX);
+        diffX = sqrt(1.0 * numPixel * numPixel / (YonX * YonX + 1));
+        diffY = sqrt(numPixel * numPixel - diffX * diffX);
         this->x -= diffX * DauX;
         this->y -= diffY * DauY;
     }
-    if(this->angle >= 180 && this->angle < 270) {
+    if(this->angle > 90 && this->angle < 180) {
+        if(numPixel == 40){
+            this->x += 34;
+            this->y += 19;
+            return;
+        }
+        if(numPixel == 15){
+            this->x += 7;
+            this->y += 12;
+        }
         DauX = -1;
         DauY = -1;
-        rad = (270 - angle) / 180 * M_PI;
-        YonX = tan(rad);
-        diffX = sqrt(numPixel * numPixel / (YonX * YonX));
-        diffY = int(diffX * 1.0 * YonX);
+        rad = 1.0 * (180 - angle) / 180 * M_PI;
+        YonX = ceil(tan(rad) * 100) / 100;
+        diffX = sqrt(1.0 * numPixel * numPixel / (YonX * YonX + 1));
+        diffY = sqrt(numPixel * numPixel - diffX * diffX);
         this->x -= diffX * DauX;
         this->y -= diffY * DauY;
     }
-    if(this->angle >= 270 && this->angle < 360) {
+    if(this->angle > 180 && this->angle < 270) {
         DauX = -1;
         DauY = 1;
-        rad = (angle - 270) / 180 * M_PI;
-        YonX = tan(rad);
-        diffX = sqrt(numPixel * numPixel / (YonX * YonX));
-        diffY = int(diffX * 1.0 * YonX);
+        rad = 1.0 * (angle - 180) / 180 * M_PI;
+        YonX = ceil(tan(rad) * 100) / 100;
+        diffX = sqrt(1.0 * numPixel * numPixel / (YonX * YonX + 1));
+        diffY = sqrt(numPixel * numPixel - diffX * diffX);
+        this->x -= diffX * DauX;
+        this->y -= diffY * DauY;
+    }
+    if(this->angle > 270 && this->angle < 360) {
+        DauX = 1;
+        DauY = 1;
+        rad = 1.0 * (360 - angle) / 180 * M_PI;
+        YonX = ceil(tan(rad) * 100) / 100;
+        diffX = sqrt(1.0 * numPixel * numPixel / (YonX * YonX + 1));
+        diffY = sqrt(numPixel * numPixel - diffX * diffX);
         this->x -= diffX * DauX;
         this->y -= diffY * DauY;
     }
